@@ -1,0 +1,66 @@
+<div class="row" style="color: #c6c0c0;">
+  <div class="col-3" style="margin-left: 2%;">
+    <div class="mt-4 lg:row-span-3 lg:mt-0" >
+      <h2 class="sr-only">Categorias de productos</h2>
+      <p class="text-3xl tracking-tight text-gray-900">Categorias</p>
+    </div>
+    <p class="tracking-tight text-gray-900">¡Encuentra precios increíbles cada día!</p>
+  </div>
+
+  <div class="col-8">
+    <p-carousel 
+      class="custom-carousel"
+      [value]="variables.categias()" 
+      [numVisible]="3" 
+      [numScroll]="1" 
+      [circular]="false" 
+      [responsiveOptions]="responsiveOptions"
+      autoplayInterval="3000">
+      <ng-template let-category pTemplate="item" >
+        <button (click)="categoria(category)" class="border-1 surface-border 10; border-round m-2 p-3 product-item"  >             
+          <div class="mb-3 font-medium tracking-tight text-gray-900">
+              {{ category }}
+          </div>              
+        </button>
+      </ng-template>
+    </p-carousel>
+  </div>
+</div>
+
+<div class="row">
+
+  @if (variables.productosCategoria()) {
+    @for (item of variables.productosCategoria(); track $index) {
+
+      <div class="col-3" style="padding: 3%;">
+        
+          <div class="group relative" style="margin-right: 1%; ">
+            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <img [src]="item.image" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full" >
+            </div>
+            <div class="mt-4 flex justify-between">
+              <div>
+                <h3 class="text-sm text-gray-700">
+                  <a href="#">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    {{item.title}}
+                  </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">{{item.description | shortDescription:30}}</p>
+              </div>
+              <p class="text-sm font-medium text-gray-900">${{item.price}}</p>
+            </div>
+          </div>
+        
+      </div>
+  
+    } @empty {
+        <div class="mt-4 lg:row-span-3 lg:mt-0" style="margin-left: 2%;">
+          <h2 class="sr-only">Product information</h2>
+          <p class="text-3xl tracking-tight text-gray-900">Seleccione una categoria.</p>
+        </div>
+      }
+  }
+  
+  
+</div>
